@@ -1,0 +1,31 @@
+
+<table  class="table table-striped">
+    <thead>
+        <th>Name</th>
+        <th>Age</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of contacts; let i = index">
+            <ng-container [ngTemplateOutlet]="getTemplate(contact)" [ngTemplateOutletContext]="{ $implicit: contact}"></ng-container>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #displayTmpl let-contact>
+  <td>{{contact.name}}</td>
+  <td>{{contact.age}}</td>
+  <td>
+      <button type="button" class="btn btn-link" (click)="editContact(contact)">Edit</button>
+  </td>
+</ng-template>
+
+<ng-template #editTmpl >
+    <td><input type="text" [(ngModel)]="selected.name" /></td>
+    <td><input type="text" [(ngModel)]="selected.age" /></td>
+    <td>
+        <button type="button" class="btn btn-link" (click)="saveContact()">Save</button>
+        <button type="button" class="btn btn-link" (click)="reset()">Cancel</button>
+    </td>
+</ng-template>
+
